@@ -1,0 +1,25 @@
+#
+# pytest.yml
+# This script runs pytest against the repo for testing.
+#
+
+name: Pytest
+
+on: [push]
+
+jobs:
+  test:
+    name: Test Code
+    runs-on: ubuntu-latest
+    steps:
+    - name: Set up workspace
+      uses: actions/checkout@v1
+    - name: Install Python
+      uses: actions/setup-python@v1
+      with: 
+        python-version: '3.x'
+        architecture: 'x64'
+    - name: Install packages
+      run: pip install -r requirements.txt
+    - name: Test Code
+      run: pytest

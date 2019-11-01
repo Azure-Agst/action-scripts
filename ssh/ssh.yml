@@ -1,0 +1,25 @@
+#
+# SSH.yml
+# This script shells into a server on push and runs a command.
+# Requires SSH_KEY, HOST, and USER to be defined in repo secrets.
+#
+
+name: SSH
+
+on: [push]
+
+jobs:
+  ssh:
+    name: SSH into Server
+    runs-on: ubuntu-latest
+    steps:
+    - name: Set up directory
+      uses: actions/checkout@v1
+    - name: Run SSH command
+      uses: maddox/actions/ssh@master
+      with:
+        args: ./start.sh
+      env:
+        PRIVATE_KEY: ${{ secrets.SSH_KEY }}
+        HOST:  ${{ secrets.HOST }}
+        USER:  ${{ secrets.USER }}
